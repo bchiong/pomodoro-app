@@ -13,58 +13,75 @@ function App() {
 
 let timer;
 let seconds;
+let stage;
 class Timer extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        time: 60 * 24,
+        time: 60 * 0.1,
         isPause: false,
+        phase: 1,
       };
   }
 
   startTimer() {
+    stage = this.state.phase;
     if (this.state.isPause) {
       seconds = this.state.time;
-      console.log('paused time', this.state.time);
       timer = (function () { return; })();
     } else {
-      seconds = 60 * 24;
+      seconds = 60 * 0.1;
     }
-    console.log('timer', timer);
+
     if(!timer) {
       timer = setInterval(() => {
+        if (stage === 4) {
+          stage = 0; // reset
+        }
+
+        if (seconds <= 0) {
+          this.setState({
+            time: 0,
+            phase: stage + 1,
+          });
+        }
+
         seconds = seconds - 1;
-        console.log('s', seconds);
         this.setState({
           time: seconds,
           isPause: false,
         });
       }, 1000);
     }
+    // if condition then set to stage 2
 
   }
 
   stopTimer() {
     if (!this.state.isPause) {
       clearInterval(timer);
-      console.log('time', this.state.time);
+
       this.setState({
         time: this.state.time,
         isPause: true,
       })
     }
   }
-
+  
   reset() {
     clearInterval(timer);
+    timer = (function () { return; })();
     this.setState({
-      time: 24 * 60
+      time: 24 * 60,
+      isPause: false,
     })
   }
   // toggle button
     render() {
       return (
       <div>
+      Phase
+      <p>{this.state.phase}</p>
       <p>{secondsToHms(this.state.time)}</p>
       <button onClick={() => this.startTimer()}>Start timer</button>
       <button onClick={() => this.stopTimer()}>Stop timer</button>
