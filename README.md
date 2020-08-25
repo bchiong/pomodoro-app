@@ -1,6 +1,6 @@
 
-## Preview link [here](https://cocky-sammet-ec0423.netlify.app)
-MVP of a productivity app that is based on the Pomodoro technique. This is an app that will helps students and employees working from home to manage their time and productivity.
+## App link [here](https://cocky-sammet-ec0423.netlify.app)
+MVP of a productivity app that is based on the Pomodoro technique. This is an app that will help students and employees working from home to manage their time and productivity.
 ## Available Scripts
 
 In the project directory, you can run:
